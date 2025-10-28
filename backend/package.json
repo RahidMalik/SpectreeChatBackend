@@ -1,0 +1,30 @@
+{
+  "dependencies": {
+    "@arcjet/inspect": "^1.0.0-beta.13",
+    "@arcjet/node": "^1.0.0-beta.13",
+    "bcrypt": "^6.0.0",
+    "body-parser": "^2.2.0",
+    "cloudinary": "^2.7.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "init": "^0.1.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.20.0",
+    "mongoose": "^8.19.1",
+    "nodemon": "^3.1.10",
+    "resend": "^6.2.0"
+  },
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node SpectreeChat.js",
+    "dev": "nodemon SpectreeChat.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
