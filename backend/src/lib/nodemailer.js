@@ -32,7 +32,7 @@ transporter.verify((error, success) => {
 
 // Sender configuration
 export const sender = {
-    name: process.env.EMAIL_FROM_NAME || "Messenger Team",
+    name: process.env.EMAIL_FROM_NAME || "SpectreeChat Team",
     email: process.env.EMAIL_USER,
 };
 
