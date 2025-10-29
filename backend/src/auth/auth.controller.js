@@ -94,12 +94,12 @@ export const login = async (req, res) => {
     const { email, password } = req.body;
 
     if (!email || !password) {
-        return res.status(401).send("All field are required")
+        return res.status(400).send("All field are required")
     }
 
     try {
         const user = await UserData.findOne({ email });
-        if (!user) res.status(400).json({ message: "invalid Credentials" })
+        if (!user) return res.status(400).json({ message: "invalid Credentials" })
         const isPasswordCorrect = await bcrypt.compare(password, user.password)
         if (!isPasswordCorrect) return res.status(400).json({ message: "invalid Credentials" })
 

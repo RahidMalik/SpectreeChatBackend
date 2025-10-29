@@ -10,7 +10,12 @@ import cookieParser from "cookie-parser";
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(
+    cors({
+        origin: "http://localhost:5173",
+        credentials: true,
+    })
+);
 app.use(cookieParser());
 
 const PORT = ENV.PORT || 5000;
@@ -25,6 +30,7 @@ if (ENV.NODE_ENV === "production") {
         res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
     });
 }
+
 
 
 app.listen(PORT, () => console.log(`SERVER RUN ON ${PORT}`))
