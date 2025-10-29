@@ -1,5 +1,5 @@
 import express from 'express';
-import { login, signup, updateProfile } from '../auth/auth.controller.js';
+import { login, logout, signup, updateProfile } from '../auth/auth.controller.js';
 import { protectRoute } from '../middleware/auth-middleware.js';
 import { arcjetProctection } from '../middleware/auth-arcjet.js';
 
@@ -9,6 +9,7 @@ router.use(arcjetProctection)
 
 router.post("/signup", signup)
 router.post("/login", login)
+router.post("/logout", logout);
 
 
 router.put("/UpdateProfile", protectRoute, updateProfile)

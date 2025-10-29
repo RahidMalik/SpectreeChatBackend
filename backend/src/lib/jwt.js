@@ -16,7 +16,8 @@ export const generateToken = (userid, res) => {
     res.cookie("jwt", token, {
         maxAge: 7 * 24 * 60 * 60 * 1000, //MS 
         httpOnly: true,
-        sameSite: "strict"
+        sameSite: "strict",
+        secure: false // true when this project is going to deploy
     })
 
     return token;
