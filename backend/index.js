@@ -22,7 +22,7 @@ app.use(cookieParser());
 
 const PORT = ENV.PORT || 5000;
 app.use("/api/auth", authRouter);
-app.use("/messages", messageRouter);
+app.use("/api/messages", messageRouter);
 
 //* make ready for deployment
 if (ENV.NODE_ENV === "production") {

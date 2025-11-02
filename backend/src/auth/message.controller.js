@@ -38,11 +38,11 @@ export const getMessagesByUserId = async (req, res) => {
 
 export const sendMessage = async (req, res) => {
     try {
-        const { text, images } = req.body;
+        const { text, image } = req.body;
         const { id: receiverId } = req.params;
         const senderId = req.user._id;
 
-        if (!text && !images) {
+        if (!text && !image) {
             return res.status(400).json({ message: "Text or image is required." });
         }
 
@@ -56,8 +56,8 @@ export const sendMessage = async (req, res) => {
         }
 
         let imageUrl;
-        if (images) {
-            const uploadResponse = await cloudinary.uploader.upload(images, { folder: "messages" });
+        if (image) {
+            const uploadResponse = await cloudinary.uploader.upload(image, { folder: "messages" });
             imageUrl = uploadResponse.secure_url;
         }
 
