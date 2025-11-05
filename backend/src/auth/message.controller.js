@@ -3,7 +3,7 @@ import UserData from "../models/UserData.js"
 import cloudinary from "../lib/cloudinary.js";
 import { getReceiverSocketId, io } from "../lib/socket.js";
 
-
+//*_______________________GetAllContacts_______________________*//
 export const getAllContacts = async (req, res) => {
     try {
         const loggedinUserId = req.user._id
@@ -18,7 +18,7 @@ export const getAllContacts = async (req, res) => {
     }
 }
 
-
+//*_______________________GetMessagesByUserId_______________________*//
 export const getMessagesByUserId = async (req, res) => {
     try {
         const myid = req.user._id;
@@ -37,7 +37,7 @@ export const getMessagesByUserId = async (req, res) => {
     }
 }
 
-
+//*_______________________SENDMESSAGE_______________________*//
 export const sendMessage = async (req, res) => {
     try {
         const { text, image } = req.body;
@@ -88,7 +88,7 @@ export const sendMessage = async (req, res) => {
     }
 };
 
-
+//*_______________________getChatPartners_______________________*//
 export const getChatPartners = async (req, res) => {
     try {
         const loggedInUserId = req.user._id;
