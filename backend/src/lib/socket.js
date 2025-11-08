@@ -13,7 +13,11 @@ const io = new Server(server, {
         origin: ENV.CLIENT_URL || "http://localhost:5173",
         credentials: true,
         methods: ["GET", "POST"],
+        allowedHeaders: ["Content-Type"], // Add this
     },
+    // Add these for production stability
+    transports: ["websocket", "polling"],
+    allowEIO3: true,
 });
 
 // ✅ Middleware for auth
