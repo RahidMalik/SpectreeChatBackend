@@ -40,15 +40,7 @@ connectDB();
 
 // ✅ Production setup (Express v5 compatible)
 
-if (ENV.NODE_ENV === "production") {
-    const frontendPath = path.join(__dirname, "../frontend/dist");
-    app.use(express.static(frontendPath));
 
-    // ✅ FIX: use a catch-all middleware instead of app.get("*")
-    app.use((req, res, next) => {
-        res.sendFile(path.join(frontendPath, "index.html"));
-    });
-}
 
 const PORT = ENV.PORT || 5000;
 server.listen(PORT, () => {
