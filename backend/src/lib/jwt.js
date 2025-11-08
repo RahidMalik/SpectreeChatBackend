@@ -13,12 +13,13 @@ export const generateToken = (userid, res) => {
         expiresIn: "7days"
     })
 
+    // Cookie set karte waqt
     res.cookie("jwt", token, {
-        maxAge: 7 * 24 * 60 * 60 * 1000, //MS 
         httpOnly: true,
-        sameSite: "strict",
-        secure: false // true when this project is going to deploy
-    })
+        secure: process.env.NODE_ENV === "production",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // 👈 IMPORTANT
+        maxAge: 1000 * 60 * 60 * 24 * 365, // 1 year
+    });
 
     return token;
 
