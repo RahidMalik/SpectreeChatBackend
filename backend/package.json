@@ -27,8 +27,7 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "start": "node SpectreeChat.js",
-    "dev": "nodemon SpectreeChat.js"
+    "start": "node index.js"
   },
   "author": "",
   "license": "ISC"
