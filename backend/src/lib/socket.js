@@ -19,7 +19,7 @@ const io = new Server(server, {
         allowedHeaders: ["Content-Type"], // Add this
     },
     // Add these for production stability
-    transports: ["websocket", "polling"],
+    transports: ["websocket"],
     allowEIO3: true,
 });
 
