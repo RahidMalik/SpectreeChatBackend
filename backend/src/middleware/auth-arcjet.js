@@ -2,7 +2,14 @@ import aj from "../lib/arcjet.js";
 
 export const arcjetProctection = async (req, res, next) => {
     try {
-        const decision = await aj.protect(req);
+        // Ensure IP is optional
+        const clientIp = req.headers['x-forwarded-for'] || req.socket.remoteAddress || "";
+
+        // Pass custom characteristics with optional IP
+        const decision = await aj.protect(req, {
+            ip: clientIp,
+            // aap additional characteristics yahan add kar sakte ho
+        });
 
         // Optional: Log decision in development
         if (process.env.NODE_ENV === "development") {
@@ -11,8 +18,6 @@ export const arcjetProctection = async (req, res, next) => {
 
         // Check if request is denied
         if (decision.isDenied()) {
-
-            // Check each rule result for specific reasons
             for (const result of decision.results) {
 
                 // Rate Limit Check
@@ -43,15 +48,15 @@ export const arcjetProctection = async (req, res, next) => {
                 }
             }
 
-            // Generic denial (if no specific reason matched)
+            // Generic denial
             return res.status(403).json({
                 success: false,
                 message: "Access denied by security policy.",
             });
         }
 
-        // Check for spoofed bots (even if allowed)
-        if (decision.reason.type === "BOT" && decision.reason.spoofed) {
+        // Spoofed bot check
+        if (decision.reason?.type === "BOT" && decision.reason?.spoofed) {
             return res.status(403).json({
                 success: false,
                 message: "Spoofed bot detected.",
@@ -59,13 +64,13 @@ export const arcjetProctection = async (req, res, next) => {
             });
         }
 
-        // All checks passed, continue to next middleware
+        // All checks passed
         next();
 
     } catch (error) {
         console.error("❌ Arcjet Protection Error:", error.message);
 
-        // In production, deny access on errors for safety
+        // Production: deny access on errors
         if (process.env.NODE_ENV === "production") {
             return res.status(500).json({
                 success: false,
@@ -73,7 +78,7 @@ export const arcjetProctection = async (req, res, next) => {
             });
         }
 
-        // Development: log error but allow request to continue
+        // Development: log but allow
         console.warn("⚠️ Arcjet error in development - allowing request");
         next();
     }
