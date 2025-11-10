@@ -30,10 +30,19 @@ app.use(cors({
     origin: (origin, callback) => {
         const allowedOrigins = [
             ENV.CLIENT_URL,
-            "http://localhost:5173"
+            "http://localhost:5173",
+            "http://localhost:5000"
         ];
-        if (!origin || allowedOrigins.includes(origin)) callback(null, true);
-        else callback(new Error("Not allowed by CORS"));
+
+        // Allow requests with no origin (like mobile apps, Postman, or same-origin)
+        if (!origin) return callback(null, true);
+
+        if (allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            console.log("❌ Blocked origin:", origin); // This will help debug
+            callback(new Error("Not allowed by CORS"));
+        }
     },
     credentials: true
 }));
