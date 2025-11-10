@@ -8,19 +8,24 @@ import Message from "../models/message.js";
 const app = express();
 const server = http.createServer(app);
 
+
 const io = new Server(server, {
     cors: {
         origin: [
             "http://localhost:5173",
+            "http://localhost:5000",
+            "https://spectree-chat.vercel.app", // Add your Vercel URL directly too
             ENV.CLIENT_URL
         ],
         credentials: true,
         methods: ["GET", "POST"],
-        allowedHeaders: ["Content-Type"], // Add this
+        allowedHeaders: ["Content-Type", "Authorization"],
     },
-    // Add these for production stability
-    transports: ["websocket"],
+    // CRITICAL FIX: Allow both transports for production
+    transports: ["websocket", "polling"],
     allowEIO3: true,
+    pingTimeout: 60000, // Add this
+    pingInterval: 25000, // Add this
 });
 
 // ✅ Middleware for auth
